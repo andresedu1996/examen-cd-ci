@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy (Vercel)
 
 on:
   push:
@@ -8,30 +8,18 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      ENV_MODE: production
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: "pip"
+      - name: Install Vercel CLI
+        run: npm i -g vercel@latest
 
-      - name: Install dependencies
+      - name: Deploy to Vercel (Production)
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Run tests before deploy
-        run: |
-          pytest
-
-    
-      - name: Trigger Render Deploy
-        run: |
-          curl -fsS -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
+          vercel deploy --prod --yes --token=$VERCEL_TOKEN
