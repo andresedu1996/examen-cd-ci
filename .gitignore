@@ -11,3 +11,5 @@ ENV/
 htmlcov/
 *.log
 .env
+.vercel
+.env*.local
