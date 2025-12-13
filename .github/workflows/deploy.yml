@@ -8,8 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-    # Variables de entorno de "producción" para el job (y útiles para tests pre-deploy)
     env:
       ENV_MODE: production
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
@@ -33,7 +31,7 @@ jobs:
         run: |
           pytest
 
-      # Deploy a Render usando Deploy Hook (lo más directo para el examen)
+    
       - name: Trigger Render Deploy
         run: |
           curl -fsS -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
