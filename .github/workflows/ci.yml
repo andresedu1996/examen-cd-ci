@@ -8,20 +8,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    # ✅ Variables de entorno necesarias (AJUSTA nombres según tu .env.example)
-    # Si tu proyecto usa python-dotenv, con crear el .env puede bastar,
-    # pero igual es válido definir env aquí para asegurar tests.
+    # ✅ Variables de entorno del proyecto
     env:
-      FLASK_ENV: testing
-      SECRET_KEY: test-secret
-      # DATABASE_URL: sqlite:///test.db
-      # OTRAS_VARIABLES: valor
+      SECRET_KEY: test-secret-key
+      ENV_MODE: testing
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Setup Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -32,10 +28,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Create .env from example
+      - name: Create .env file
         run: |
           cp .env.example .env
 
-      - name: Run tests (pytest)
+      - name: Run tests
         run: |
-          pytest -q
+          pytest
