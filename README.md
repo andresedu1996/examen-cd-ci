@@ -57,3 +57,12 @@ pytest
 ## Para Estudiantes
 
 Lee las instrucciones completas en [EXAMEN.md](EXAMEN.md)
+
+
+## Evidencia de Deployment y Tests
+
+- **URL del sitio en producción:**  
+  https://examen-cd-ci.vercel.app/
+
+- **Pruebas de la API (Postman):**  
+  [Ver evidencias en PDF](evidencias/postman-tests.pdf)
